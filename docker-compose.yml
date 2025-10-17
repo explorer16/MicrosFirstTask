@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: first_app
+    working_dir: /var/www
+    volumes:
+      - ./:/var/www
+    networks:
+      - first_task
+
+  node:
+    image: node:20
+    container_name: first_node
+    working_dir: /var/www
+    volumes:
+      - .:/var/www
+    command: sh -c "npm install && npm run dev"
+    ports:
+      - "5173:5173"
+    networks:
+      - first_task
+
+  nginx:
+    image: nginx:stable-alpine
+    container_name: first_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    networks:
+      - first_task
+
+  db:
+    image: postgres:15
+    container_name: first_db
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: first_test
+      POSTGRES_USER: first_user
+      POSTGRES_PASSWORD: 1221
+    ports:
+      -   "5432:5432"
+    networks:
+      - first_task
+
+  db_test:
+    image: postgres:15
+    container_name: first_db_test
+    volumes:
+      - db_test_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: first_test
+      POSTGRES_USER: first_user_test
+      POSTGRES_PASSWORD: 1221
+    ports:
+      - "5433:5432"
+    networks:
+      - first_task
+
+networks:
+  first_task:
+    driver: bridge
+
+volumes:
+  db_data:
+  db_test_data:
