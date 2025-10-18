@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedInteger('record_category_id');
             $table->unsignedBigInteger('amount');
-            $table->text('comment');
-            $table->date('date');
+            $table->text('comment')->nullable();
+            $table->date('date')->default(now());
             $table->timestamps();
             $table->softDeletes();
 
