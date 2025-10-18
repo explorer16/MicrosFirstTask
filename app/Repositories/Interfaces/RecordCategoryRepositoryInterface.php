@@ -7,7 +7,8 @@ use App\Models\RecordCategory;
 
 interface RecordCategoryRepositoryInterface
 {
-    public function list();
+    public function list(RecordCategory $recordCategory);
+    public function inventory(RecordCategory $recordCategory);
     public function create(RecordCategoryRequest $request);
-    public function update(RecordCategory $recordCategory);
+    public function update(RecordCategoryRequest $request, RecordCategory $recordCategory);
 }

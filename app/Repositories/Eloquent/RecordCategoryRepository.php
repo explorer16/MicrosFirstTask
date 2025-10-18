@@ -9,18 +9,30 @@ use App\Repositories\Interfaces\RecordCategoryRepositoryInterface;
 class RecordCategoryRepository implements RecordCategoryRepositoryInterface
 {
 
-    public function list()
+    public function list(RecordCategory $recordCategory)
     {
-        // TODO: Implement list() method.
+        $recordCategory = $recordCategory->filter()->sort();
+
+        return $recordCategory->paginate();
     }
 
-    public function create(RecordCategoryRequest $request)
+    public function inventory(RecordCategory $recordCategory): array
+    {
+        $recordIncomingCategories = $recordCategory->where('type', 'incoming')->select('id', 'name');
+        $recordOutgoingCategories = $recordCategory->where('type', 'outgoing')->select('id', 'name');
+
+        return [
+            'incoming' => $recordIncomingCategories->get(),
+            'outgoing' => $recordOutgoingCategories->get()
+        ];
+    }
+    public function create(RecordCategoryRequest $request): void
     {
         RecordCategory::query()->create($request->all());
     }
 
-    public function update(RecordCategory $recordCategory)
+    public function update(RecordCategoryRequest $request, RecordCategory $recordCategory): void
     {
-        // TODO: Implement update() method.
+        $recordCategory->update($request->all());
     }
 }

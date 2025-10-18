@@ -13,5 +13,6 @@ Route::group(
     ], function () {
         Route::apiResource('records', 'RecordController');
         Route::apiResource('record_categories', 'RecordCategoryController');
+        Route::get('/record_categories/inventory', 'RecordCategoryController@inventory');
     }
 );
