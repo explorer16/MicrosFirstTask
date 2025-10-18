@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('record_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->enum('type', ['incoming', 'outgoing'])->default('outgoing');
             $table->timestamps();
         });
     }

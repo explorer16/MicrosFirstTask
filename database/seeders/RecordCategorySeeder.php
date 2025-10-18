@@ -23,23 +23,23 @@ class RecordCategorySeeder extends Seeder
         ]);
         RecordCategory::query()->create([
             'name' => 'Продукты питания',
-            'type' => 'outcoming'
+            'type' => 'outgoing'
         ]);
         RecordCategory::query()->create([
             'name' => 'Транспорт',
-            'type' => 'outcoming'
+            'type' => 'outgoing'
         ]);
         RecordCategory::query()->create([
             'name' => 'Мобильная связь',
-            'type' => 'outcoming'
+            'type' => 'outgoing'
         ]);
         RecordCategory::query()->create([
             'name' => 'Интернет',
-            'type' => 'outcoming'
+            'type' => 'outgoing'
         ]);
         RecordCategory::query()->create([
             'name' => 'Развлечения',
-            'type' => 'outcoming'
+            'type' => 'outgoing'
         ]);
     }
 }
