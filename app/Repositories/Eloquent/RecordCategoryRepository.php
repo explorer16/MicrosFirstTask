@@ -18,12 +18,11 @@ class RecordCategoryRepository implements RecordCategoryRepositoryInterface
 
     public function inventory(RecordCategory $recordCategory): array
     {
-        $recordIncomingCategories = $recordCategory->where('type', 'incoming')->select('id', 'name');
-        $recordOutgoingCategories = $recordCategory->where('type', 'outgoing')->select('id', 'name');
+        $recordCategories = $recordCategory->filter();
+        $recordCategories = $recordCategories->select('id', 'name');
 
         return [
-            'incoming' => $recordIncomingCategories->get(),
-            'outgoing' => $recordOutgoingCategories->get()
+            $recordCategories->get()
         ];
     }
     public function create(RecordCategoryRequest $request): void
