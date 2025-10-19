@@ -6,6 +6,7 @@ use App\Repositories\Eloquent\RecordCategoryRepository;
 use App\Repositories\Eloquent\RecordRepository;
 use App\Repositories\Interfaces\RecordCategoryRepositoryInterface;
 use App\Repositories\Interfaces\RecordRepositoryInterface;
+use Illuminate\Support\Facades\Vite;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,6 +25,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        Vite::prefetch(concurrency: 3);
     }
 }
