@@ -34,7 +34,9 @@ class RecordCategoryController extends Controller
 
     public function inventory(): \Illuminate\Http\JsonResponse
     {
-        return response()->json($this->repository->inventory($this->category));
+        return response()->json(
+            $this->repository->inventory($this->category)
+        );
     }
 
     /**

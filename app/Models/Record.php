@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Record extends Model
 {
     use SoftDeletes;
-    protected $fillable = ['record_category_id', 'amount', 'comment', 'date'];
+    protected $fillable = ['record_category_id', 'amount', 'total_amount', 'comment', 'date'];
 
     public function scopeSort($query)
     {
@@ -24,8 +24,8 @@ class Record extends Model
         if ($filter = request('id')) {
             $query = $query->where('id', 'like', '%' . $filter . '%');
         }
-        if ($filter = request('record_category')) {
-            $query = $query->whereHas('record_category', function ($query) use ($filter) {
+        if ($filter = request('record_category_id')) {
+            $query = $query->whereHas('category', function ($query) use ($filter) {
                 $query->where('id', $filter);
             });
         }
@@ -41,6 +41,6 @@ class Record extends Model
 
     public function category(): BelongsTo
     {
-        return $this->belongsTo(RecordCategory::class);
+        return $this->belongsTo(RecordCategory::class, 'record_category_id', 'id');
     }
 }

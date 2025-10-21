@@ -41,8 +41,9 @@ class RecordCategoryTest extends TestCase
 
     public function test_update_record_category(): void
     {
-        $response = $this->putJson('/api/record_categories/7', [
-            'id' => 7,
+        $id = RecordCategory::latest('id')->value('id');
+        $response = $this->putJson('/api/record_categories/' . $id, [
+            'id' => $id,
             'name' => 'test1',
             'type' => 'outgoing',
         ]);
@@ -52,7 +53,8 @@ class RecordCategoryTest extends TestCase
 
     public function test_delete_record_category(): void
     {
-        $response = $this->deleteJson('/api/record_categories/10');
+        $id = RecordCategory::latest()->value('id');
+        $response = $this->deleteJson('/api/record_categories/' . $id);
 
         $response->assertStatus(200);
     }

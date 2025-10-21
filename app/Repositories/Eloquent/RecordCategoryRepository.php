@@ -13,17 +13,15 @@ class RecordCategoryRepository implements RecordCategoryRepositoryInterface
     {
         $recordCategory = $recordCategory->filter()->sort();
 
-        return $recordCategory->paginate();
+        return $recordCategory->paginate(request('per_page') ?? 20);
     }
 
-    public function inventory(RecordCategory $recordCategory): array
+    public function inventory(RecordCategory $recordCategory)
     {
         $recordCategories = $recordCategory->filter();
         $recordCategories = $recordCategories->select('id', 'name');
 
-        return [
-            $recordCategories->get()
-        ];
+        return $recordCategories->get();
     }
     public function create(RecordCategoryRequest $request): void
     {

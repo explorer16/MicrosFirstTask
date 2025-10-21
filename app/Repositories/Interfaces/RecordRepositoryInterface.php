@@ -10,4 +10,5 @@ interface RecordRepositoryInterface
     public function list(Record $record);
     public function create(RecordRequest $request);
     public function update(RecordRequest $request, Record $record);
+    public function delete(int $id);
 }

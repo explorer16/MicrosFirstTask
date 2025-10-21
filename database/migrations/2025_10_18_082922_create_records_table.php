@@ -13,16 +13,13 @@ return new class extends Migration
     {
         Schema::create('records', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('record_category_id');
+            $table->foreignId('record_category_id')->constrained('record_categories');
             $table->unsignedBigInteger('amount');
+            $table->unsignedBigInteger('total_amount')->nullable();
             $table->text('comment')->nullable();
             $table->date('date')->default(now());
             $table->timestamps();
             $table->softDeletes();
-
-            $table->foreign('record_category_id')
-                ->references('id')
-                ->on('record_categories');
         });
     }
 

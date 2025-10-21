@@ -26,10 +26,10 @@ class RecordController extends Controller
      */
     public function index(): \Illuminate\Http\JsonResponse
     {
-        $recordCategories = $this->repository->list($this->record);
+        $records = $this->repository->list($this->record);
 
         return response()->json(
-            new RecordCollection($recordCategories)
+            new RecordCollection($records)
         );
     }
 
@@ -41,7 +41,7 @@ class RecordController extends Controller
         $this->repository->create($request);
 
         return response()->json([
-            'message' => 'Record category created successfully',
+            'message' => 'Record created successfully',
             'code' => 200
         ]);
     }
@@ -62,19 +62,19 @@ class RecordController extends Controller
         $this->repository->update($request, $record);
 
         return response()->json([
-            'message' => 'Record Category updated successfully',
+            'message' => 'Record updated successfully',
         ]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id): \Illuminate\Http\JsonResponse
+    public function destroy(int $id): \Illuminate\Http\JsonResponse
     {
-        Record::destroy($id);
+        $this->repository->delete($id);
 
         return response()->json([
-            'message' => 'Record Category deleted successfully',
+            'message' => 'Record deleted successfully',
         ]);
     }
 }
