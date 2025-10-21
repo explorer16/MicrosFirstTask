@@ -15,5 +15,6 @@ RUN npm install && npm run build
 RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
 RUN chown -R www-data:www-data /var/www
 
-EXPOSE 10000
-CMD ["php", "artisan", "serve", "--host=0.0.0.0", "--port=10000"]
+EXPOSE 8000
+
+CMD php artisan serve --host=0.0.0.0 --port=${PORT:-8000}
