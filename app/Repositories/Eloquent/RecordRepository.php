@@ -58,7 +58,7 @@ class RecordRepository implements RecordRepositoryInterface
         $prev_amount = Record::where('id', '<', $current_id)
             ->orderBy('id', 'desc')
             ->value('total_amount') ?? 0;
-logger([$category->type, $prev_amount, $amount, $current_id]);
+
         if ($category->type === 'incoming') return ($prev_amount + $amount);
         if ($category->type === 'outgoing') return ($prev_amount - $amount);
 
@@ -68,7 +68,7 @@ logger([$category->type, $prev_amount, $amount, $current_id]);
     private function changeRecord(array $request, Record $record): void
     {
         $total_amount = $this->getTotalAmount($request['record_category_id'], $request['amount'], $record->id);
-        logger($total_amount);
+
         $old_total_amount = $record->total_amount;
 
         $record->update([
