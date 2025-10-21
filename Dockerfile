@@ -8,12 +8,21 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 WORKDIR /var/www
 
+COPY composer.json composer.lock ./
+RUN composer install --no-dev --optimize-autoloader
+
+COPY package*.json ./
+RUN npm install
+
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
-RUN npm install && npm run build
-RUN php artisan config:cache && php artisan route:cache && php artisan view:cache
-RUN chown -R www-data:www-data /var/www
+RUN npm run build
+
+RUN php artisan config:cache \
+    && php artisan route:cache \
+    && php artisan view:cache \
+    && chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache \
+    && chmod -R 775 /var/www/storage /var/www/bootstrap/cache
 
 EXPOSE 8000
 
