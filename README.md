@@ -36,7 +36,7 @@ docker exec first_app php artisan key:generate
 ```
 ```bash
 # 7️⃣ Применяем миграции и заполняем тестовыми данными
-docker exec first_app php artisan migrate --seed
+docker exec first_app php artisan migrate:fresh --seed
 ```
 
 <hr>
