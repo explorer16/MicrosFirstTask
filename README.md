@@ -38,11 +38,15 @@ docker exec first_app php artisan key:generate
 # 7️⃣ Применяем миграции и заполняем тестовыми данными
 docker exec first_app php artisan migrate --seed
 ```
+
+<hr>
+Необязательные команды
+
 ```bash
-# 8️⃣ Устанавливаем зависимости фронтенда
+# 8️⃣ Установка зависимости фронтенда
 docker exec first_node npm install
 ```
 ```bash
-# 9️⃣ Собираем фронтенд
+# 9️⃣ Сборка фронтенда
 docker exec first_node npm run build
 ```
